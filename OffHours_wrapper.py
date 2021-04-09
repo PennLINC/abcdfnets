@@ -1,12 +1,31 @@
 import subprocess
 import time
-subjects = [1,2,3,4,5]
-while len(subjects>0):
+import datetime
+# grab last 5K subjects as list
+my_file = open("/cbica/projects/abcdfnets/nda-abcd-s3-downloader/March_2021_DL/rest+task_all_Surf_only_infomap_Last5000.txt", "r")
+content = my_file.read()
+content_list = content. split("\n")
+# remove last line (blank)
+content_list.pop()
+# feed em' in as subjects
+subjects = content_list
+# while there are more than 0 subjects left to run
+while len(subjects)>0:
+  # grab qsub info, get number of jobs being run
   qstat = subprocess.check_output(['qstat'],shell=True).decode().split('/bin/python')[0]
   que = len(qstat.split('\n'))-3
-  time = time.localtime().tm_hour,time.localtime().tm_min 
-  #check if there is room! 
-  newsub = subjects.pop
-  #submit code here
-  time.sleep(60) #wait a minute
+  # if we are using less than 4 job slots
+  if que < 4:
+    # see if it is the weekend, 0, 1, 2, 3, and 4 are weekday, 5 and 6 are weekend
+    weekno = datetime.datetime.today().weekday()
+    # see if it is before 9 or after 5 
+    time = time.localtime().tm_hour 
+    # if weekend OR after 6 PM OR before 8 AM
+    if weekno < 5 or time < 8 or time > 17 :
+      newsub = subjects.pop
+      commandString = "qsub -l h_vmem=15G,s_vmem=14G qsubMatlab.sh "
+      commandString_Comb = commandString + newsub
+      # submit job (if above conditions are met)
+      subprocess.run(commandString_Comb)
+      time.sleep(60) #wait a minute
 
