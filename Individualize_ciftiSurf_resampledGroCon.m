@@ -8,7 +8,8 @@ mkdir(ResultantFolder);
 PrepDataFile = [ProjectFolder '/SingleParcellation/CreatePrepData.mat'];
 
 resId = 'IndividualParcel_Final';
-initName = [ProjectFolder '/SingleParcellation/RobustInitialization_Cifti_Surf/initResamp.mat'];
+% 7/2/21 - subbed in filled initResamp instead of "initResamp.mat"
+initName = [ProjectFolder '/SingleParcellation/RobustInitialization_Cifti_Surf/initResamp_unmasked.mat'];
 
 K = 17;
 

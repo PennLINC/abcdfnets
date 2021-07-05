@@ -2,7 +2,7 @@ import subprocess
 import time
 import datetime
 # grab last 5K subjects as list
-my_file = open("/cbica/projects/abcdfnets/nda-abcd-s3-downloader/March_2021_DL/rest+task_all_Surf_only_infomap_Last5000-249.txt", "r")
+my_file = open("/cbica/projects/abcdfnets/nda-abcd-s3-downloader/March_2021_DL/rest+task_all_Surf_only_infomap.txt", "r")
 content = my_file.read()
 content_list = content. split("\n")
 # remove last line (blank)
@@ -24,6 +24,6 @@ while len(subjects)>0:
     if weekno > 4 or Hour < 8 or Hour > 17 :
       newsub = subjects.pop()
       # submit job (if above conditions are met)
-      subprocess.run(["qsub","-l","h_vmem=15G,s_vmem=14G","qsubMatlab.sh",newsub])
+      subprocess.run(["qsub","-l","h_vmem=11G,s_vmem=10G","qsubMatlab.sh",newsub])
       time.sleep(60) #wait a minute
 
