@@ -1,1 +1,1 @@
-matlab -nodisplay -r "MM_Extract_Delete('${1}')"
+matlab -nodisplay -r "preProc_SSP_Delete('${1}')"

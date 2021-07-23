@@ -6,7 +6,7 @@ V=init.initV;
 LoadingSum=sum(V,2);
 zeroSum=find(LoadingSum==0);
 % vector to populate blanks with
-fillVector=[.2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2 .2]; 
+fillVector=[.1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1]; 
 % populate through loop
 for i=1:length(zeroSum);
 V(zeroSum(i),:)=fillVector;

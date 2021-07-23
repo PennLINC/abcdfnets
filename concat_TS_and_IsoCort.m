@@ -9,14 +9,30 @@ rsfp=[parentfp sname '_ses-baselineYear1Arm1_task-rest_p2mm_masked.dtseries.nii'
 sstfp=[parentfp sname '_ses-baselineYear1Arm1_task-SST_p2mm_masked.dtseries.nii'];
 nbackfp=[parentfp sname '_ses-baselineYear1Arm1_task-nback_p2mm_masked.dtseries.nii'];
 midfp=[parentfp sname '_ses-baselineYear1Arm1_task-MID_p2mm_masked.dtseries.nii'];
+
+% make directory to report missingness to
+missingDir=['/cbica/projects/abcdfnets/results/MissingDataReports/' sname];
+mkdir(missingDir);
+missingFile=[missingDir '/MissingData.txt'];
+
 if ~exist(sstfp,'file')
 disp('missing sst')
-elseif ~exist(rsfp,'file')
+system(['echo sst_missing >> ' missingFile]); 
+end
+
+if ~exist(rsfp,'file')
 disp('missing rs')
-elseif ~exist(nbackfp,'file')
+system(['echo rs_missing >> ' missingFile]);
+end
+
+if ~exist(nbackfp,'file')
 disp('missing nback')
-elseif ~exist(midfp,'file')
+system(['echo nback_missing >> ' missingFile]);
+end
+
+if ~exist(midfp,'file')
 disp('missing mid')
+system(['echo mid_missing >> ' missingFile]);
 end
 
 

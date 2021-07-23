@@ -17,6 +17,7 @@ for t=1:4
 	ts=ts_cif.cdata;
 	% load in mask
 	masfp=strjoin([fpParent sname '_ses-baselineYear1Arm1_task-' task '_desc-filteredwithoutliers_motion_mask.mat'],'');
+	if exist(masfp,'file')
 	mask=load(masfp);
 	% get to FD_thresh of .2 mm, corresponds to threshold 21
 	maskp2mm=mask.motion_data{1,21}.combined_removal;
@@ -39,6 +40,12 @@ for t=1:4
 	ofp=convertStringsToChars(ofp);
 	% write out motion masked cifti
 	write_cifti(ts_cif,ofp);
+	else
+	missingDir=['/cbica/projects/abcdfnets/results/MissingDataReports/' sname];
+	mkdir(missingDir);
+	missingFile=[missingDir '/MissingData.txt'];
+	system(['echo motionMask_missing >> ' missingFile]);
+	end
 	else
 end
 end
