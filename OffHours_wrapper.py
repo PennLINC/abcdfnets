@@ -1,8 +1,8 @@
 import subprocess
 import time
 import datetime
-# grab 2K subjects not run as list
-my_file = open("/cbica/projects/abcdfnets/nda-abcd-s3-downloader/UnranSubjs.txt", "r")
+# grab 229 subjects not run as list
+my_file = open("/cbica/projects/abcdfnets/nda-abcd-s3-downloader/reRun728.txt", "r")
 content = my_file.read()
 content_list = content. split("\n")
 # remove last line (blank)
